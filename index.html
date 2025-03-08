@@ -43,12 +43,20 @@
             justify-content: center;
             margin-bottom: 10px;
             gap: 10px;
-            align-items: center; /* Zadanie 1: Zmiana na center dla wyrównania */
+            align-items: flex-start; /* Zadanie 1: Wyrównanie na górze */
         }
         .form-group {
             flex: 1;
             min-width: 0;
             max-width: 200px;
+        }
+        .form-group.no-sub-info {
+            /* Dodanie pustego sub-info, aby wyrównać wysokość */
+            position: relative;
+        }
+        .form-group.no-sub-info .sub-info {
+            visibility: hidden;
+            height: 0;
         }
         .form-label {
             font-weight: 500;
@@ -76,11 +84,11 @@
         .form-range {
             margin-top: 2px;
             height: 10px;
-            background: #d3d3d3; /* Zadanie 4: Ciemniejsze tło paska suwaka */
+            background: #d3d3d3;
             border-radius: 5px;
         }
         .form-range::-webkit-slider-thumb {
-            background: #C2B280; /* Zadanie 4: Kolor uchwytu jak przycisk */
+            background: #C2B280;
             border: none;
             border-radius: 50%;
             width: 16px;
@@ -89,7 +97,7 @@
             -webkit-appearance: none;
         }
         .form-range::-moz-range-thumb {
-            background: #C2B280; /* Zadanie 4: Kolor uchwytu jak przycisk */
+            background: #C2B280;
             border: none;
             border-radius: 50%;
             width: 16px;
@@ -106,12 +114,9 @@
             margin-top: 2px;
             text-align: left;
         }
-        .form-group.no-sub-info .input-group {
-            margin-bottom: 16px;
-        }
         .radio-option {
             display: flex;
-            align-items: center; /* Zadanie 3: Wyśrodkowanie etykiet */
+            align-items: center;
             gap: 3px;
         }
         .radio-label {
@@ -134,18 +139,21 @@
         }
         .chart-container {
             display: flex;
-            align-items: center;
+            align-items: flex-start; /* Zapobiega nakładaniu się */
             justify-content: space-between;
             margin-bottom: 20px;
             position: relative;
         }
         .chart {
             flex: 1;
-            max-width: 200px; /* Zadanie 6: Zmniejszenie wykresu */
+            max-width: 150px; /* Zadanie 6: Zmniejszenie wykresu */
+            position: relative;
+            z-index: 10; /* Zapobiega zasłanianiu */
         }
         .chart-legend {
             flex: 1;
             padding-left: 20px;
+            max-width: 50%; /* Ograniczenie szerokości legendy */
         }
         .chart-legend .legend-item {
             display: flex;
@@ -157,22 +165,27 @@
             transition: transform 0.3s ease;
         }
         .chart-legend .color-box {
-            width: 120%; /* Zadanie 5: Rozszerzenie pasków */
-            height: 3.75px; /* Zadanie 5: Skrócenie o połowę */
+            width: 30%; /* Zadanie 5: Zmniejszenie szerokości paska do 30% */
+            height: 7.5px;
             margin-bottom: 5px;
             border-radius: 5px;
             text-align: center;
-            color: #fff;
             font-weight: 500;
-            line-height: 3.75px;
+            line-height: 7.5px;
             font-size: 0.5em;
             transition: width 0.3s ease, height 0.3s ease;
             white-space: nowrap;
             overflow: hidden;
         }
+        .chart-legend .legend-item .color-box span.value {
+            color: #fff; /* Wartość podświetlona kolorem paska */
+        }
         .chart-legend .legend-item:hover .color-box {
-            width: 130%;
-            height: 4.5px;
+            width: 40%; /* Powiększenie paska przy hover */
+            height: 9px;
+        }
+        .chart-legend .legend-item:hover {
+            color: #fff; /* Zadanie 5: Nazwa zmienia kolor na biały przy hover */
         }
         .summary-footer {
             display: flex;
@@ -227,7 +240,7 @@
     <div class="container">
         <div class="form-section" id="formSection">
             <a href="https://twoja-strona.pl" target="_blank">
-                <h3 class="text-center">Logo</h3>
+                <img src="cropped-logo-FB-1.png" alt="Twoje Logo" class="logo d-block mx-auto">
             </a>
             <h4>Kalkulator Kredytowy</h4>
 
@@ -240,6 +253,7 @@
                             <span class="input-group-text">zł</span>
                         </div>
                         <input type="range" class="form-range" id="kwotaRange" min="1000" max="5000000" step="1000" value="500000">
+                        <div class="sub-info"></div> <!-- Pusty sub-info dla wyrównania -->
                     </div>
                     <div class="form-group">
                         <label for="okres" class="form-label">Ilość rat</label>
@@ -257,6 +271,7 @@
                             <span class="input-group-text">%</span>
                         </div>
                         <input type="range" class="form-range" id="oprocentowanieRange" min="0.1" max="25" step="0.1" value="7">
+                        <div class="sub-info"></div> <!-- Pusty sub-info dla wyrównania -->
                     </div>
                 </div>
 
@@ -267,9 +282,10 @@
                             <option value="rowne" selected>Rata równa</option>
                             <option value="malejace">Rata malejąca</option>
                         </select>
+                        <div class="sub-info"></div> <!-- Pusty sub-info dla wyrównania -->
                     </div>
                     <div class="form-group">
-                        <label for="prowizja" class="form-label">Prowizja</label> <!-- Zadanie 2: Zmiana nazwy -->
+                        <label for="prowizja" class="form-label">Prowizja</label>
                         <div class="input-group">
                             <input type="number" class="form-control" id="prowizja" min="0.1" max="25" step="0.1" value="2">
                             <select class="form-select" id="prowizjaTyp">
@@ -311,10 +327,10 @@
 
         <div class="result-section" id="resultSection">
             <a href="https://twoja-strona.pl" target="_blank">
-                <h3 class="text-center">Logo</h3>
+                <img src="cropped-logo-FB-1.png" alt="Twoje Logo" class="logo d-block mx-auto">
             </a>
             <div class="result-header">
-                <h4>Kredyt Posiadany</h4>
+                <h4>Wyliczenia kredytu podstawowego</h4> <!-- Zmiana nagłówka -->
             </div>
             <button class="btn btn-secondary mb-3" onclick="showForm()">Powrót do edycji</button>
             <div class="chart-container">
@@ -323,19 +339,19 @@
                 </div>
                 <div class="chart-legend">
                     <div class="legend-item" data-index="0">
-                        <div class="color-box" style="background-color: #28a745;">Kapitał: <span id="kapital">-</span></div>
+                        <div class="color-box" style="background-color: #28a745;"><span class="value" id="kapital">-</span></div>Kapitał
                     </div>
                     <div class="legend-item" data-index="1">
-                        <div class="color-box" style="background-color: #dc3545;">Nadpłaty: <span id="nadplataWynik">-</span></div>
+                        <div class="color-box" style="background-color: #dc3545;"><span class="value" id="nadplataWynik">-</span></div>Nadpłaty
                     </div>
                     <div class="legend-item" data-index="2">
-                        <div class="color-box" style="background-color: #6f42c1;">Prowizja od nadpłat: <span id="prowizjaOdNadplat">-</span></div>
+                        <div class="color-box" style="background-color: #6f42c1;"><span class="value" id="prowizjaOdNadplat">-</span></div>Prowizja od nadpłat
                     </div>
                     <div class="legend-item" data-index="3">
-                        <div class="color-box" style="background-color: #007bff;">Odsetki: <span id="odsetki">-</span></div>
+                        <div class="color-box" style="background-color: #007bff;"><span class="value" id="odsetki">-</span></div>Odsetki
                     </div>
                     <div class="legend-item" data-index="4">
-                        <div class="color-box" style="background-color: #17a2b8;">Prowizja za udzielenie: <span id="prowizjaWynik">-</span></div>
+                        <div class="color-box" style="background-color: #17a2b8;"><span class="value" id="prowizjaWynik">-</span></div>Prowizja za udzielenie
                     </div>
                 </div>
             </div>
