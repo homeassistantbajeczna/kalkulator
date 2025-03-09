@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
-    <!-- Styl CSS przeniesiony do części 2 -->
+    <!-- CSS będzie wklejony w Części 2 -->
 </head>
 <body>
     <div class="logo-container">
@@ -17,7 +17,6 @@
     </div>
     <div class="container">
         <div class="form-section" id="formSection">
-            <!-- Formularz pozostaje bez zmian -->
             <h4>Kalkulator Kredytowy</h4>
             <div class="compare-checkbox">
                 <input type="checkbox" id="porownajKredyt" name="porownajKredyt">
@@ -27,7 +26,6 @@
                 <div class="form-wrapper">
                     <h5>Twój Kredyt</h5>
                     <form id="kredytForm">
-                        <!-- Formularz bez zmian -->
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="kwota" class="form-label">Kwota kredytu</label>
@@ -122,7 +120,6 @@
                 <div class="form-wrapper" id="formSection2">
                     <h5>Nowy Kredyt</h5>
                     <form id="kredytForm2">
-                        <!-- Formularz dla drugiego kredytu bez zmian -->
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="kwota2" class="form-label">Kwota kredytu</label>
@@ -223,6 +220,7 @@
                 <h4>Podsumowanie wyników</h4>
             </div>
             <button class="btn btn-secondary mb-3" onclick="showForm()">Powrót do edycji</button>
+            <button id="generatePdfBtn" class="btn btn-primary btn-sm mb-3">Generuj PDF</button>
             <div class="result-container">
                 <div class="result-wrapper">
                     <h5>Twój Kredyt</h5>
@@ -255,7 +253,6 @@
                                 </div>
                                 <span class="legend-text">Prowizja</span>
                             </div>
-                            <!-- Usunięto "Prowizja od nadpłat" -->
                         </div>
                     </div>
                     <div class="summary-footer">
@@ -295,7 +292,6 @@
                                 </div>
                                 <span class="legend-text">Prowizja</span>
                             </div>
-                            <!-- Usunięto "Prowizja od nadpłat" -->
                         </div>
                     </div>
                     <div class="summary-footer">
@@ -304,7 +300,6 @@
                     </div>
                 </div>
             </div>
-            <!-- Reszta HTML bez zmian -->
             <div class="benefit-summary" id="benefitSummary">
                 <h6>Korzyści nowego kredytu:</h6>
                 <div class="benefit-item" id="benefitCost">Zmniejszenie kosztu kredytu: <span class="value" id="benefitCostValue">-</span> zł</div>
@@ -356,7 +351,7 @@
             </div>
         </div>
     </div>
-    <!-- Skrypt przeniesiony do części 3 -->
+    <!-- JavaScript będzie wklejony w Części 3 -->
 </body>
 </html>
 <style>
@@ -412,7 +407,6 @@
         height: 0;
     }
     .form-label {
-        font-weight: 700;
         font-size: 0.7em;
         text-transform: uppercase;
         margin-bottom: 2px;
@@ -601,8 +595,8 @@
         cursor: pointer;
     }
     .highlight.yellow {
-        background-color: #17a2b8; /* Nowy kolor dla "Okres kredytowania" */
-        color: #ffffff; /* Biała czcionka */
+        background-color: #17a2b8;
+        color: #ffffff;
     }
     .highlight.yellow:hover {
         color: transparent;
@@ -611,15 +605,15 @@
         content: attr(data-hover);
         font-weight: bold;
         font-size: 1.1em;
-        color: #ffffff; /* Biała czcionka po najechaniu */
+        color: #ffffff;
         position: absolute;
-        left: 0;
         top: 0;
+        left: 0;
         width: 100%;
         height: 100%;
-        display: block;
-        text-align: center;
-        line-height: 1.5em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     .highlight.red {
         background-color: #f8d7da;
@@ -634,13 +628,13 @@
         font-size: 1.1em;
         color: #dc3545;
         position: absolute;
-        left: 0;
         top: 0;
+        left: 0;
         width: 100%;
         height: 100%;
-        display: block;
-        text-align: center;
-        line-height: 1.5em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     .harmonogram {
         margin-top: 20px;
@@ -658,9 +652,10 @@
     }
     .harmonogram th {
         background: linear-gradient(90deg, #C2B280, #b0a070);
-        color: #ffffff;
+        color: #000000;
         padding: 8px;
         text-align: center;
+        vertical-align: middle;
         font-weight: 500;
         border-bottom: 2px solid #ddd;
     }
@@ -670,6 +665,7 @@
         font-weight: 400;
         border-bottom: 1px solid #eee;
         background-color: #f9f9f9;
+        color: #000000;
     }
     .harmonogram tr:last-child td {
         border-bottom: none;
@@ -699,6 +695,14 @@
         background-color: #b0a070;
         border-color: #b0a070;
         color: #000000;
+    }
+    .btn-sm {
+        font-size: 0.7em;
+        padding: 3px 10px;
+    }
+    #generatePdfBtn {
+        display: block;
+        margin: 0 auto 10px;
     }
     #harmonogramContent, #harmonogramContent2 {
         display: block;
@@ -817,8 +821,10 @@
     }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
     let chart1, chart2;
+    const { jsPDF } = window.jspdf;
 
     function toggleCompareSection() {
         const compareCheckbox = document.getElementById("porownajKredyt");
@@ -1202,10 +1208,10 @@
         chart = new Chart(ctx, {
             type: 'doughnut',
             data: {
-                labels: ['Kapitał', 'Odsetki', 'Nadpłaty', 'Prowizja'], // Usunięto "Prowizja od nadpłat"
+                labels: ['Kapitał', 'Odsetki', 'Nadpłaty', 'Prowizja'],
                 datasets: [{
-                    data: [kwota, odsetki, calkowitaNadplata, prowizjaPLN], // Usunięto wartość dla "Prowizja od nadpłat"
-                    backgroundColor: ['#28a745', '#007bff', '#dc3545', '#6f42c1'], // Usunięto #17a2b8
+                    data: [kwota, odsetki, calkowitaNadplata, prowizjaPLN],
+                    backgroundColor: ['#28a745', '#007bff', '#dc3545', '#6f42c1'],
                     borderWidth: 1,
                     hoverOffset: 8,
                     hoverBackgroundColor: ['#28a745', '#007bff', '#dc3545', '#6f42c1']
@@ -1315,4 +1321,110 @@
     }
 
     document.getElementById("obliczBtn").addEventListener("click", obliczKredyt);
+
+    document.getElementById("generatePdfBtn").addEventListener("click", generatePDF);
+
+    function generatePDF() {
+        const doc = new jsPDF();
+        const compareCheckbox = document.getElementById("porownajKredyt");
+        let yOffset = 10;
+
+        doc.setFontSize(16);
+        doc.text("Kalkulator Kredytowy - Wyniki", 10, yOffset);
+        yOffset += 10;
+
+        doc.setFontSize(12);
+        doc.text("Twój Kredyt", 10, yOffset);
+        yOffset += 10;
+
+        const kapital = document.getElementById("valueKapital").textContent;
+        const odsetki = document.getElementById("valueOdsetki").textContent;
+        const nadplata = document.getElementById("valueNadplata").textContent;
+        const prowizja = document.getElementById("valueProwizja").textContent;
+        const okres = document.getElementById("okresPoNadplacie").textContent;
+        const koszt = document.getElementById("koszt").textContent;
+
+        doc.text(`Kapitał: ${kapital}`, 10, yOffset);
+        yOffset += 5;
+        doc.text(`Odsetki: ${odsetki}`, 10, yOffset);
+        yOffset += 5;
+        doc.text(`Nadpłaty: ${nadplata}`, 10, yOffset);
+        yOffset += 5;
+        doc.text(`Prowizja: ${prowizja}`, 10, yOffset);
+        yOffset += 5;
+        doc.text(`Okres kredytowania: ${okres} mc-y`, 10, yOffset);
+        yOffset += 5;
+        doc.text(`Całkowita kwota spłaty: ${koszt} zł`, 10, yOffset);
+        yOffset += 10;
+
+        doc.text("Harmonogram spłat - Twój Kredyt", 10, yOffset);
+        yOffset += 5;
+        const harmonogram1 = document.getElementById("harmonogramTabela").getElementsByTagName("tr");
+        doc.autoTable({
+            startY: yOffset,
+            head: [['Miesiąc', 'Rata', 'Nadpłata', 'Kapitał', 'Odsetki', 'Pozostały kapitał']],
+            body: Array.from(harmonogram1).map(row => Array.from(row.cells).map(cell => cell.textContent)),
+            theme: 'striped',
+            styles: { fontSize: 8, cellPadding: 2 },
+            headStyles: { fillColor: [194, 178, 128] }
+        });
+        yOffset = doc.lastAutoTable.finalY + 10;
+
+        if (compareCheckbox.checked) {
+            doc.addPage();
+            yOffset = 10;
+
+            doc.setFontSize(12);
+            doc.text("Nowy Kredyt", 10, yOffset);
+            yOffset += 10;
+
+            const kapital2 = document.getElementById("valueKapital2").textContent;
+            const odsetki2 = document.getElementById("valueOdsetki2").textContent;
+            const nadplata2 = document.getElementById("valueNadplata2").textContent;
+            const prowizja2 = document.getElementById("valueProwizja2").textContent;
+            const okres2 = document.getElementById("okresPoNadplacie2").textContent;
+            const koszt2 = document.getElementById("koszt2").textContent;
+
+            doc.text(`Kapitał: ${kapital2}`, 10, yOffset);
+            yOffset += 5;
+            doc.text(`Odsetki: ${odsetki2}`, 10, yOffset);
+            yOffset += 5;
+            doc.text(`Nadpłaty: ${nadplata2}`, 10, yOffset);
+            yOffset += 5;
+            doc.text(`Prowizja: ${prowizja2}`, 10, yOffset);
+            yOffset += 5;
+            doc.text(`Okres kredytowania: ${okres2} mc-y`, 10, yOffset);
+            yOffset += 5;
+            doc.text(`Całkowita kwota spłaty: ${koszt2} zł`, 10, yOffset);
+            yOffset += 10;
+
+            doc.text("Harmonogram spłat - Nowy Kredyt", 10, yOffset);
+            yOffset += 5;
+            const harmonogram2 = document.getElementById("harmonogramTabela2").getElementsByTagName("tr");
+            doc.autoTable({
+                startY: yOffset,
+                head: [['Miesiąc', 'Rata', 'Nadpłata', 'Kapitał', 'Odsetki', 'Pozostały kapitał']],
+                body: Array.from(harmonogram2).map(row => Array.from(row.cells).map(cell => cell.textContent)),
+                theme: 'striped',
+                styles: { fontSize: 8, cellPadding: 2 },
+                headStyles: { fillColor: [194, 178, 128] }
+            });
+            yOffset = doc.lastAutoTable.finalY + 10;
+
+            doc.setFontSize(12);
+            doc.text("Korzyści nowego kredytu", 10, yOffset);
+            yOffset += 5;
+            const benefitCost = document.getElementById("benefitCost").textContent;
+            const benefitPeriod = document.getElementById("benefitPeriod").textContent;
+            const benefitPercentage = document.getElementById("benefitPercentage").textContent;
+
+            doc.text(benefitCost, 10, yOffset);
+            yOffset += 5;
+            doc.text(benefitPeriod, 10, yOffset);
+            yOffset += 5;
+            doc.text(benefitPercentage, 10, yOffset);
+        }
+
+        doc.save("Kalkulator_Kredytowy_Wyniki.pdf");
+    }
 </script>
